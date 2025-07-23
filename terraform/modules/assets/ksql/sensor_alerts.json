@@ -1,0 +1,6 @@
+{
+  "ksql": "CREATE STREAM IF NOT EXISTS sensor_alerts WITH (KAFKA_TOPIC = 'sensor-alerts', VALUE_FORMAT = 'JSON') AS SELECT sensor_id, temperature, humidity, timestamp, CASE WHEN temperature > 35 THEN 'HIGH_TEMPERATURE' WHEN humidity < 20 THEN 'LOW_HUMIDITY' END AS alert_type, CASE WHEN temperature > 35 THEN 'Temperature exeeded 35ºC' WHEN humidity < 20 THEN 'Humidity is below 20%' END AS details FROM sensor_data WHERE temperature > 35 OR humidity < 20 PARTITION BY sensor_id;",
+  "streamsProperties": {
+    "auto.offset.reset": "earliest"
+  }
+}
