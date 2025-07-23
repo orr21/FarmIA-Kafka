@@ -1,0 +1,88 @@
+{
+  "name": "transactions",
+  "type": "record",
+  "fields": [
+    {
+      "name": "transaction_id",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "options": [
+            "tx00001", "tx00002", "tx00003", "tx00004", "tx00005",
+            "tx00006", "tx00007", "tx00008", "tx00009", "tx00010",
+            "tx00011", "tx00012", "tx00013", "tx00014", "tx00015",
+            "tx00016", "tx00017", "tx00018", "tx00019", "tx00020",
+            "tx00021", "tx00022", "tx00023", "tx00024", "tx00025",
+            "tx00026", "tx00027", "tx00028", "tx00029", "tx00030"
+          ]
+        }
+      }
+    },
+     {
+      "name": "timestamp",
+      "type": {
+        "type": "long",
+        "doc": "Unix timestamp in milliseconds",
+        "arg.properties": {
+           "iteration": { "start": 1587715775521, "step": 1000}
+        }
+      }
+    },
+    {
+      "name": "product_id",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "options": [
+            "prod_001", "prod_002", "prod_003", "prod_004", "prod_005",
+            "prod_006", "prod_007", "prod_008", "prod_009", "prod_010",
+            "prod_011", "prod_012", "prod_013", "prod_014", "prod_015",
+            "prod_016", "prod_017", "prod_018", "prod_019", "prod_020",
+            "prod_021", "prod_022", "prod_023", "prod_024", "prod_025",
+            "prod_026", "prod_027", "prod_028", "prod_029", "prod_030"
+          ]
+        }
+      }
+    },
+    {
+      "name": "category",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "options": [
+            "fertilizers",
+            "seeds",
+            "pesticides",
+            "equipment",
+            "supplies",
+            "soil"
+          ]
+        }
+      }
+    },
+    {
+      "name": "quantity",
+      "type": {
+        "type": "int",
+        "arg.properties": {
+          "range": {
+            "min": 1,
+            "max": 10
+          }
+        }
+      }
+    },
+    {
+      "name": "price",
+      "type": {
+        "type": "float",
+        "arg.properties": {
+          "range": {
+            "min": 10.0,
+            "max": 200.0
+          }
+        }
+      }
+    }
+  ]
+}

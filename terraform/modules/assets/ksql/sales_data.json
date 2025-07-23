@@ -1,0 +1,6 @@
+{
+  "ksql": "CREATE STREAM IF NOT EXISTS sales_data (transaction_id STRING, timestamp BIGINT, product_id STRING, category STRING, quantity INT, price DOUBLE) WITH (KAFKA_TOPIC = 'sales-transactions', VALUE_FORMAT = 'AVRO', TIMESTAMP = 'timestamp');",
+  "streamsProperties": {
+    "auto.offset.reset": "earliest"
+  }
+}

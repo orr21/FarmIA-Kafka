@@ -1,0 +1,17 @@
+subscription = "YOUR_AZURE_SUBSCRIPTION"
+azure_region = "eastus"
+location = "spaincentral"
+
+my_ip = "YOUR_PUBLIC_IP"
+
+ssh_public_key_path = "PATH_PUBLIC_SSH_KEY"
+
+mysql_admin = "YOUR_MYSQL_USERNAME"
+mysql_password = "YOUR_MYSQL_PASSWORD"
+
+confluent_api_key    = "CLOUD_RESOURCE_MANAGEMENT_YOUR_API_KEY"
+confluent_api_secret = "CLOUD_RESOURCE_MANAGEMENT_YOUR_API_SECRET"
+
+environment_name = "farmia-env"
+cluster_name = "farmia-kafka"
+availability = "SINGLE_ZONE"

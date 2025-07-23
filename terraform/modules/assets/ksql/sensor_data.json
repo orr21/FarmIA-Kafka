@@ -1,0 +1,6 @@
+{
+  "ksql": "CREATE STREAM IF NOT EXISTS sensor_data (sensor_id STRING, temperature DOUBLE, humidity DOUBLE, timestamp BIGINT) WITH (KAFKA_TOPIC = 'sensor-telemetry', VALUE_FORMAT = 'AVRO');",
+  "streamsProperties": {
+    "auto.offset.reset": "earliest"
+  }
+}

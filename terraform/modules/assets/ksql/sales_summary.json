@@ -1,0 +1,6 @@
+{
+  "ksql": "CREATE TABLE IF NOT EXISTS sales_summary WITH (KAFKA_TOPIC='sales-summary', VALUE_FORMAT='JSON') AS SELECT category,  WINDOWEND AS window_end, WINDOWSTART AS window_start, SUM(quantity) AS total_quantity, SUM(quantity * price) AS total_revenue FROM sales_data WINDOW TUMBLING (SIZE 1 MINUTE) GROUP BY category;",
+  "streamsProperties": {
+    "auto.offset.reset": "earliest"
+  }
+}
