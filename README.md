@@ -11,7 +11,7 @@ Puedes descargarlo desde: [https://www.terraform.io/downloads.html](https://www.
 
 Este proyecto utiliza las siguientes versiones de providers:
 
-````hcl
+```hcl
 terraform {
   required_providers {
     azurerm = {
@@ -24,6 +24,7 @@ terraform {
     }
   }
 }
+```
 
 ## Objetivo de la Tarea
 
