@@ -1,15 +1,15 @@
-# FarmIA – Kafka y Procesamiento en Tiempo Real
+# FarmIA – Kafka and Real-Time Processing
 
-Este proyecto tiene como objetivo construir un pipeline de procesamiento en tiempo real para FarmIA utilizando Apache Kafka y su ecosistema. El sistema permite integrar datos de sensores agrícolas (IoT) y transacciones de ventas en línea, generando información valiosa para la toma de decisiones.
+This project aims to build a real-time processing pipeline for FarmIA using Apache Kafka and its ecosystem. The system enables integration of agricultural sensor data (IoT) and online sales transactions, generating valuable insights for decision-making.
 
-## Requisitos
+## Requirements
 
-Debes tener **Terraform instalado** en tu sistema para desplegar la infraestructura.  
-Puedes descargarlo desde: [https://www.terraform.io/downloads.html](https://www.terraform.io/downloads.html)
+You must have **Terraform installed** on your system to deploy the infrastructure.  
+You can download it from: [https://www.terraform.io/downloads.html](https://www.terraform.io/downloads.html)
 
-### Versiones de Providers
+### Provider Versions
 
-Este proyecto utiliza las siguientes versiones de providers:
+This project uses the following provider versions:
 
 ```hcl
 terraform {
@@ -26,58 +26,58 @@ terraform {
 }
 ```
 
-## Objetivo de la Tarea
+## Project Objectives
 
-Construir una solución de streaming basada en Kafka que:
+Build a Kafka-based streaming solution that:
 
-1. Procese datos de sensores en tiempo real para detectar condiciones anómalas.
-2. Procese datos de transacciones en tiempo real para generar resumenes agregados minuto a minuto.
-3. Use Kafka Streams o KSQLDB para generar:
-   - Alertas ante anomalías de sensores.
-   - Resúmenes de ventas por categoría de producto cada minuto.
+1. Processes sensor data in real-time to detect anomalous conditions.
+2. Processes transaction data in real-time to generate minute-by-minute aggregated summaries.
+3. Uses KSQLDB to generate:
+   - Alerts for sensor anomalies.
+   - Sales summaries by product category every minute.
 
 ---
 
-## Estructura del Repositorio
+## Repository Structure
 
 ```plaintext
 ├── LICENSE
-├── README.md                    # Este archivo
+├── README.md                    # This file
 └── terraform/
-    ├── logs/                    # Logs de ejecución de las queries KSQL
+    ├── logs/                    # Execution logs for KSQL queries
     │   ├── ksql-sales_data.log
     │   ├── ksql-sales_summary.log
     │   ├── ksql-sensor_alerts.log
     │   └── ksql-sensor_data.log
-    ├── main.tf                  # Archivo principal de Terraform
-    ├── terraform.tfvars.example# Plantilla de configuración
-    ├── variables.tf            # Definición de variables globales
+    ├── main.tf                  # Main Terraform file
+    ├── terraform.tfvars.example # Configuration template
+    ├── variables.tf             # Global variable definitions
     ├── modules/
     │   ├── assets/
-    │   │   ├── avro_schemas/   # Schemas AVRO (sensor y transacciones)
-    │   │   ├── ksql/           # Queries KSQL en formato JSON
-    │   │   └── scripts/        # Scripts auxiliares como startup.sh
-    │   ├── azure_core/         # Infraestructura en Azure para la base de datos MySQL
-    │   ├── confluent_cluster/  # Configuración del clúster Kafka
-    │   ├── confluent_env/      # Entorno de variables Confluent
-    │   ├── connectors/         # Definición de conectores Kafka Connect
-    │   ├── kafka_topics/       # Declaración de los topics Kafka
-    │   ├── ksqldb/             # Configuración de KSQLDB
-    │   ├── schema_registry/    # Registro de schemas
-    │   └── schemas/            # Gestión de schemas vía Terraform
+    │   │   ├── avro_schemas/    # AVRO schemas (sensor and transactions)
+    │   │   ├── ksql/            # KSQL queries in JSON format
+    │   │   └── scripts/         # Auxiliary scripts like startup.sh
+    │   ├── azure_core/          # Azure infrastructure for MySQL database
+    │   ├── confluent_cluster/   # Kafka cluster configuration
+    │   ├── confluent_env/       # Confluent environment variables
+    │   ├── connectors/          # Kafka Connect connector definitions
+    │   ├── kafka_topics/        # Kafka topic declarations
+    │   ├── ksqldb/              # KSQLDB configuration
+    │   ├── schema_registry/     # Schema registry
+    │   └── schemas/             # Schema management via Terraform
 ````
 
-## Setup del Entorno
+## Environment Setup
 
-1. Copia y edita las variables necesarias:
+1. Copy and edit the necessary variables:
 
    ```bash
    cp terraform.tfvars.example terraform.tfvars
    ```
 
-2. Ajusta las variables en `terraform.tfvars` según tu entorno.
+2. Adjust the variables in `terraform.tfvars` according to your environment.
 
-3. Aplica la infraestructura:
+3. Apply the infrastructure:
    ```bash
    cd terraform
    terraform apply -auto-approve
@@ -85,71 +85,92 @@ Construir una solución de streaming basada en Kafka que:
 
 ---
 
-## Schemas AVRO
+## AVRO Schemas
 
-Los schemas utilizados para la serialización de los datos en Kafka están definidos en formato AVRO y se encuentran en el directorio [`terraform/modules/assets/avro_schemas/`](https://github.com/orr21/FarmIA-Kafka/blob/main/terraform/modules/assets/avro_schemas/).
+The schemas used for data serialization in Kafka are defined in AVRO format and can be found in the [`terraform/modules/assets/avro_schemas/`](https://github.com/orr21/FarmIA-Kafka/blob/main/terraform/modules/assets/avro_schemas/) directory.
 
 ---
 
 ## Kafka Topics
 
-Los siguientes topics son creados automáticamente y usados durante el flujo de procesamiento:
+The following topics are automatically created and used during the processing flow:
 
-- `_transacions`: simula la llegada de transacciones que son almacenadas en MySQL.
-- `sensor-telemetry`: recibe datos generados por sensores IoT.
-- `sales-transactions`: recibe datos de ventas extraídos de MySQL.
-- `sensor-alerts`: recibe las alertas generadas por anomalías en sensores.
-- `sales-summary`: contiene los resúmenes de ventas por categoría.
+- `_transacions`: simulates incoming transactions that are stored in MySQL.
+- `sensor-telemetry`: receives data generated by IoT sensors.
+- `sales-transactions`: receives sales data extracted from MySQL.
+- `sensor-alerts`: receives alerts generated by sensor anomalies.
+- `sales-summary`: contains sales summaries by category.
 
-La configuración de los topics se encuentra en el archivo [`terraform/main.tf`](https://github.com/orr21/FarmIA-Kafka/blob/main/terraform/main.tf#L116), alrededor de la línea 116.
+The topic configuration can be found in the [`terraform/main.tf`](https://github.com/orr21/FarmIA-Kafka/blob/main/terraform/main.tf#L116) file, around line 116.
 
 ---
 
 ## Kafka Connect
 
-Se utilizan conectores para integrar fuentes externas a Kafka:
+Connectors are used to integrate external sources with Kafka:
 
 - **Datagen Connector**:
-  - Simula datos de sensores agrícolas en el topic `sensor-telemetry`.
-  - Simula datos de transacciones en el topic `_transacctions`.
+  - Simulates agricultural sensor data in the `sensor-telemetry` topic.
+  - Simulates transaction data in the `_transacctions` topic.
 
 - **MySQL Sink Connector**: 
-  Conecta la base de datos relacional e inserta las transacciones extraídas de `_transactions`.
+  Connects to the relational database and inserts transactions extracted from `_transactions`.
 
 - **MySQL Source Connector**:
-  Conecta la base de datos relacional y publica en `sales-transactions`.
+  Connects to the relational database and publishes to `sales-transactions`.
 
-La configuración de los conectores se encuentra en el archivo [`terraform/main.tf`](https://github.com/orr21/FarmIA-Kafka/blob/main/terraform/main.tf#L140), alrededor de la línea 140.
+The connector configuration can be found in the [`terraform/main.tf`](https://github.com/orr21/FarmIA-Kafka/blob/main/terraform/main.tf#L140) file, around line 140.
 
 ---
 
-## Kafka Streams / KSQL
+## KSQL
 
-El procesamiento en tiempo real se realiza mediante KSQLDB. Se implementan dos flujos principales:
+Real-time processing is performed using KSQLDB. Two main flows are implemented:
 
-1. **Detección de Anomalías (Sensores)**
+1. **Anomaly Detection (Sensors)**
 
    - Input: `sensor-telemetry`
-   - Condiciones: temperatura > 35 °C o humedad < 20 %
+   - Conditions: temperature > 35 °C or humidity < 20 %
    - Output: `sensor-alerts`
 
-2. **Resumen de Ventas por Categoría**
+2. **Sales Summary by Category**
    - Input: `sales-transactions`
-   - Agrega el total de ingresos por categoría de producto cada minuto
+   - Aggregates total revenue by product category every minute
    - Output: `sales-summary`
 
-Las queries se encuentran en [`modules/assets/ksql/`](https://github.com/orr21/FarmIA-Kafka/blob/main/terraform/modules/assets/ksql/).
+The queries can be found in [`modules/assets/ksql/`](https://github.com/orr21/FarmIA-Kafka/blob/main/terraform/modules/assets/ksql/).
 
 ---
 
-## Shutdown del Entorno
+## Technical Challenges
 
-or motivos de seguridad y control explícito, el apagado de la infraestructura debe hacerse de forma manual. Esto evita eliminaciones accidentales de recursos críticos en ambientes compartidos o en producción.
+### KSQL Integration with Terraform
 
-Si intentas ejecutar:
+One of the most significant challenges in this project was the limited compatibility between the Confluent Terraform provider and KSQLDB. At the time of development, the Confluent provider (version 2.34.0) did not offer native resources for creating and managing KSQL streams and tables declaratively.
+
+**The Solution:**
+
+To overcome this limitation, a custom approach was developed using Terraform's `null_resource` with `local-exec` provisioners. This solution:
+
+1. Creates the KSQLDB cluster using the native `confluent_ksql_cluster` resource
+2. Generates API credentials for authentication
+3. Executes KSQL statements by making direct HTTP requests to the Confluent KSQL REST API using `curl`
+4. Stores execution logs for debugging and auditing purposes
+
+The implementation can be found in [`terraform/modules/ksqldb/main.tf`](https://github.com/orr21/FarmIA-Kafka/blob/main/terraform/modules/ksqldb/main.tf), where each KSQL query is executed as a separate `null_resource` with proper dependency management to ensure correct execution order.
+
+This approach, while not ideal from a pure Infrastructure-as-Code perspective, provides a reliable and reproducible way to deploy KSQL resources alongside the rest of the Kafka infrastructure.
+
+---
+
+## Environment Shutdown
+
+For security and explicit control reasons, infrastructure shutdown must be done manually. This prevents accidental deletion of critical resources in shared or production environments.
+
+If you try to run:
 
    ```bash
    terraform destroy -auto-approve
    ```
 
-Verás un error de permisos denegados. Esta restricción es intencional. Si necesitas eliminar los recursos, contacta con el administrador del entorno o sigue el procedimiento autorizado dentro de tu entorno de nube.
+You will see a permission denied error. This restriction is intentional. If you need to delete resources, contact the environment administrator or follow the authorized procedure within your cloud environment.

@@ -1,31 +1,31 @@
 variable "environment_id" {
   type        = string
-  description = "ID del environment en Confluent Cloud"
+  description = "Confluent Cloud environment ID"
 }
 
 variable "environment_rn" {
   type        = string
-  description = "Resource Name del environment en Confluent Cloud"
+  description = "Confluent Cloud environment Resource Name"
 }
 
 variable "cluster_name" {
   type        = string
-  description = "Nombre del Kafka Cluster"
+  description = "Kafka Cluster name"
 }
 
 variable "cloud" {
   type        = string
   default     = "AZURE"
-  description = "Proveedor cloud (AZURE, AWS, GCP)"
+  description = "Cloud provider (AZURE, AWS, GCP)"
 }
 
 variable "region" {
   type        = string
-  description = "Región donde desplegar el Kafka Cluster"
+  description = "Region where to deploy the Kafka Cluster"
 }
 
 variable "availability" {
   type        = string
   default     = "SINGLE_ZONE"
-  description = "Disponibilidad del Kafka Cluster"
+  description = "Kafka Cluster availability"
 }

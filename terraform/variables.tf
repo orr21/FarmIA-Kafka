@@ -1,62 +1,62 @@
 variable "subscription" {
   type        = string
-  description = "ID de suscripción Azure"
+  description = "Azure subscription ID"
 }
 
 variable "location" {
   type        = string
-  description = "Región Azure"
+  description = "Azure region"
 }
 
 variable "my_ip" {
   type        = string
-  description = "Tu IP pública para reglas de firewall"
+  description = "Your public IP for firewall rules"
 }
 
 variable "ssh_public_key_path" {
   type        = string
-  description = "Ruta a tu clave pública SSH"
+  description = "Path to your SSH public key"
 }
 
 variable "mysql_admin" {
   type        = string
-  description = "Usuario administrador MySQL"
+  description = "MySQL administrator user"
 }
 
 variable "mysql_password" {
   type        = string
   sensitive   = true
-  description = "Password administrador MySQL"
+  description = "MySQL administrator password"
 }
 
 variable "confluent_api_key" {
   type        = string
-  description = "API Key de Confluent Cloud"
+  description = "Confluent Cloud API Key"
 }
 
 variable "confluent_api_secret" {
   type        = string
   sensitive   = true
-  description = "API Secret de Confluent Cloud"
+  description = "Confluent Cloud API Secret"
 }
 
 variable "environment_name" {
   type        = string
-  description = "Nombre del Environment en Confluent"
+  description = "Confluent Environment name"
 }
 
 variable "cluster_name" {
   type        = string
-  description = "Nombre del Kafka Cluster"
+  description = "Kafka Cluster name"
 }
 
 variable "azure_region" {
   type        = string
-  description = "Región para el Kafka Cluster (p.ej. AZURE región)"
+  description = "Region for Kafka Cluster (e.g., Azure region)"
 }
 
 variable "availability" {
   type        = string
   default     = "SINGLE_ZONE"
-  description = "Disponibilidad del Kafka Cluster"
+  description = "Kafka Cluster availability"
 }

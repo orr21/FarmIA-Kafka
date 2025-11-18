@@ -1,11 +1,11 @@
 output "ksql_cluster_id" {
   value       = confluent_ksql_cluster.this.id
-  description = "ID del clúster ksqlDB"
+  description = "ksqlDB cluster ID"
 }
 
 output "ksql_rest_endpoint" {
   value       = confluent_ksql_cluster.this.rest_endpoint
-  description = "REST endpoint de ksqlDB"
+  description = "ksqlDB REST endpoint"
 }
 
 output "ksql_api_key" {

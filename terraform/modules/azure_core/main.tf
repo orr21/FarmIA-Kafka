@@ -54,7 +54,7 @@ resource "azurerm_network_interface_security_group_association" "nsg_assoc" {
   network_security_group_id = azurerm_network_security_group.nsg.id
 }
 
-# VM Linux con MySQL instalado vía custom_data
+# Linux VM with MySQL installed via custom_data
 resource "azurerm_linux_virtual_machine" "vm" {
   name                   = "farmia-mysql-vm"
   resource_group_name    = var.resource_group_name
